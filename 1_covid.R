@@ -13,9 +13,12 @@ library(HMClust) # must be installed with GitHub
 
 
 
-# get COVID-19 data
-covid <- read.csv("us-counties.txt")
-dta_old <- covid[ covid$state %in% c("Pennsylvania"), ]
+# get COVID-19 data from only PA
+# covid <- read.csv("us-counties.txt")
+# dta_old <- covid[ covid$state %in% c("Pennsylvania"), ]
+# write.csv(dta_old, "PA.txt", row.names=FALSE)
+
+dta_old <- read.csv("PA.txt")
 # fill in missing dates with zeros
 for( state1 in unique(as.character(dta_old$state)) ){
   for( county1 in unique(as.character(dta_old$county)) ){
@@ -72,8 +75,6 @@ for( county in unique(dta$county) ){
   }
 }
 dta <- dta[(dta$date>=as.Date("2020-10-01"))*(dta$date<as.Date("2021-03-01"))==1,]
-covid <- NULL
-dta_old <- NULL
 
 # get counties mapping
 counties <- read.csv("2015_counties_table.csv")
